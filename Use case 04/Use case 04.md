@@ -341,29 +341,25 @@ Make some changes in your code to use the Done property.
 
     ![](./media/image50.jpeg)
 
-2.  Open **Views\Todos\Create.cshtml**. Add the following code after the
-    < div class=\"form-group\" > for **CreatedDate**.
+2.  Open **Views\Todos\Create.cshtml**. Add the following code after the **\<div class="form-group"\>** for **CreatedDate**.
 
     ![](./media/image51.jpeg)
 
     ```
     <div class="form-group">
-    @Html.LabelFor(model => model.Done, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <div class="checkbox">
-            @Html.EditorFor(model => model.Done)
-            @Html.ValidationMessageFor(model => model.Done, "", new { @class = "text-danger" })
+        @Html.LabelFor(model => model.Done, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Done)
+                @Html.ValidationMessageFor(model => model.Done, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
-</div>
-
     ```
 
-3.  Open **Views\Todos\Index.cshtml**. Add the following code in the
-    empty **th** element, after the **th** element for
-    the **CreatedDate**.
+3.  Open **Views\Todos\Index.cshtml**. Add the following code in the empty **th** element, after the **th** element for the **CreatedDate**.
 
-    +++@Html.DisplayNameFor(model =\> model.Done) +++
+    +++@Html.DisplayNameFor(model => model.Done)+++
 
     ![](./media/image52.jpeg)
 
@@ -371,9 +367,8 @@ Make some changes in your code to use the Done property.
 
     ```
     <td>
-    @Html.DisplayFor(modelItem => item.Done)
-</td>
-
+        @Html.DisplayFor(modelItem => item.Done)
+    </td>
     ```
     ![](./media/image53.jpeg)
 
