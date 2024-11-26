@@ -498,9 +498,8 @@ To test the endpoint, it uses \[RESTAssured\]{.underline}.
 3.  Switch back to **Gitbash** and Ctrl + C. Run below commands to test
     the application by using this command:
 
-    ```bash
-    ./mvnw clean test
-    ```
+    +++./mvnw clean test+++
+    
     ![A computer screen with text and images Description automatically generated](./media/image37.jpeg)
 
     You should see output that looks similar to this:
@@ -633,9 +632,7 @@ This article provides example abbreviations for many Azure resources
 1.  Switch back to Gitbash and run below command to run the application
     locally:
 
-    ```bash
-    ./mvnw clean quarkus:dev
-    ```
+    +++./mvnw clean quarkus:dev+++
 
     ![A computer screen with text and images Description automatically generated](./media/image48.jpeg)
 
@@ -669,9 +666,8 @@ This article provides example abbreviations for many Azure resources
 3.  Next, check that the to-dos are in the database by accessing the GET
     endpoint that\\'s defined in the to-do app:
 
-    ```bash
-    curl http://127.0.0.1:8080/api/todos
-    ```
+    +++curl http://127.0.0.1:8080/api/todos+++
+    
 
     You should see the following output:
 
@@ -698,7 +694,7 @@ using the Azure CLI.
     these **Dockerfiles, *Dockerfile.jvm*,** to ***Dockerfile*** and
     move it to the root folder:
 
-    \`\`mv src/main/docker/Dockerfile.jvm ./Dockerfile\`\`
+    +++mv src/main/docker/Dockerfile.jvm ./Dockerfile+++
 
     ![A black screen with white text Description automatically generated](./media/image55.jpeg)
     
@@ -737,9 +733,7 @@ using the Azure CLI.
     make sure that the Quarkus application is packaged as a JAR file. To
     do so, run the following Maven command:
 
-    ```bash
-    ./mvnw package
-    ```
+    +++./mvnw package+++
 
     ![A computer screen with white text Description automatically generated](./media/image57.jpeg)
 
@@ -758,9 +752,7 @@ using the Azure CLI.
     single Azure CLI command. Run the following command at the root of
     the project:
 
-    ```bash
-    az containerapp up --name "$AZ_CONTAINERAPP" --environment "$AZ_CONTAINERAPP_ENV" --location "$AZ_LOCATION" --resource-group "$AZ_RESOURCE_GROUP" --ingress external --target-port 8080 --source .
-    ```
+    +++az containerapp up --name "$AZ_CONTAINERAPP" --environment "$AZ_CONTAINERAPP_ENV" --location "$AZ_LOCATION" --resource-group "$AZ_RESOURCE_GROUP" --ingress external --target-port 8080 --source .+++
 
     ![A screenshot of a computer program Description automatically generated](./media/image60.jpeg)
     
@@ -808,9 +800,7 @@ You should see resources similar to the following:
     It lists all the resources created by the az containerapp up
     command.
 
-    ```bash
-    az resource list --location "$AZ_LOCATION" --resource-group "$AZ_RESOURCE_GROUP" --output table
-    ```
+    +++az resource list --location "$AZ_LOCATION" --resource-group "$AZ_RESOURCE_GROUP" --output table+++
 
     You should see output that's similar to this:
 

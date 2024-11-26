@@ -48,8 +48,7 @@ with a web browser.
 
     ![](./media/image3.jpeg)
 
-    **Note:** If Create Codespace on main option does not show up, click on
-the + symbol next to Codespaces.
+    **Note:** If Create Codespace on main option does not show up, click on the + symbol next to Codespaces.
 
     ![](./media/image4.jpeg)
 
@@ -57,16 +56,14 @@ the + symbol next to Codespaces.
 
     ![](./media/image5.jpeg)
 
-6.  Execute mvn quarkus:dev in the Terminal. Click on **Allow** in the
+6.  Execute **mvn quarkus:dev** in the Terminal. Click on **Allow** in the
     pop up.
 
     ![](./media/image6.jpeg)
 
     ![](./media/image7.jpeg)
 
-7.  When you see the notification, **Your application running on port
-    8080** is available., select **Open in Browser**. You should see the
-    sample application in a new browser tab.
+7.  When you see the notification, **Your application running on port 8080** is available., select **Open in Browser**. You should see the sample application in a new browser tab.
 
     If you see a **notification** with port **5005**, **skip** it.
 
@@ -81,14 +78,10 @@ the + symbol next to Codespaces.
 
 ## Exercise 2: Create App Service and PostgreSQL
 
-First, you create the Azure resources. The steps used in this lab create
-a set of secure-by-default resources that include App Service and Azure
-Database for PostgreSQL.
+First, you create the Azure resources. The steps used in this lab create a set of secure-by-default resources that include App Service and Azure Database for PostgreSQL.
 
 1.  Login to Azure portal
-    at https://portal.azure.com/ and **login** with
-    the **Username** and **password** under the **User
-    Credentials** section in the **Resources** tab of the VM.
+    at https://portal.azure.com/ and **login** with the **Username** and **password** under the **User Credentials** section in the **Resources** tab of the VM.
 
     ![](./media/image11.jpeg)
 
@@ -145,13 +138,9 @@ Database for PostgreSQL.
     performed.
 
         - App Service plan
-    
         - App Service
-    
         - Virtual network
-    
         - Azure Database for PostgreSQL flexible server
-    
         - Private DNS zone
 
         ![](./media/image20.jpeg)
@@ -247,7 +236,7 @@ build and deploy action.
     Quarkus uses this file to load Java properties.
 
 9.  Find the code (lines 10-11). This code sets the production variable
-    %prod.quarkus.datasource.jdbc.url to the app setting that the
+    **%prod.quarkus.datasource.jdbc.url** to the app setting that the
     creation wizard for you. The quarkus.package.type is set to build an
     Uber-Jar, which you need to run in App Service.
 

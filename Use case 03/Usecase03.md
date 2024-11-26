@@ -36,22 +36,18 @@ perform the following steps
 >**Note**: If see WARNING: A web browser has been opened at `https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize.`Please continue the login in the web browser. If no web browser is
 available or if the web browser fails to open, use device code flow with +++az login --use-device-code+++
 
-![A black background with yellow text Description automatically
-generated](./media/image1.jpeg)
+![A black background with yellow text Description automatically generated](./media/image1.jpeg)
 
 2.  This command will take you to the default browser to login. Login
     with your Azure subscription account.
 
-![A screenshot of a computer Description automatically
-generated](./media/image2.jpeg)
+![A screenshot of a computer Description automatically generated](./media/image2.jpeg)
 
-![A screenshot of a computer Description automatically
-generated](./media/image3.jpeg)
+![A screenshot of a computer Description automatically generated](./media/image3.jpeg)
 
 3.  Once authenticated switch back to the Gitbash
 
-![A computer screen with white text Description automatically
-generated](./media/image4.jpeg)
+![A computer screen with white text Description automatically generated](./media/image4.jpeg)
 
 4.  Now we will enable our Azure subscription execute the below command
 
@@ -59,8 +55,7 @@ generated](./media/image4.jpeg)
 
     +++az account list --output table+++
 
-![A computer screen with white text Description automatically
-generated](./media/image5.jpeg)
+![A computer screen with white text Description automatically generated](./media/image5.jpeg)
 
 5.  Define local variables To simplify the commands that will be
     executed further down, set up the following environment variables
@@ -94,8 +89,7 @@ in this module.
 
     +++az group create --name $AZ_RESOURCE_GROUP --location $AZ_LOCATION |jq+++
 
-![A screen shot of a computer Description automatically
-generated](./media/image7.jpeg)
+    ![A screen shot of a computer Description automatically generated](./media/image7.jpeg)
 
 9.  Azure Container Registry allows you to build, store, and manage
     container images, which are ultimately where the container image for
@@ -104,31 +98,26 @@ generated](./media/image7.jpeg)
 
     +++az acr create --resource-group $AZ_RESOURCE_GROUP --name $AZ_CONTAINER_REGISTRY --sku Basic | jq+++
 
-![A screenshot of a computer screen Description automatically
-generated](./media/image8.jpeg)
+    ![A screenshot of a computer screen Description automatically generated](./media/image8.jpeg)
 
 10. Configure Azure CLI to use this newly created Azure Container
     Registry
 
     +++az configure --defaults acr=$AZ_CONTAINER_REGISTRY+++
 
-![A black background with green and white text Description automatically
-generated](./media/image9.jpeg)
+    ![A black background with green and white text Description automatically generated](./media/image9.jpeg)
 
 11. Authenticate to the newly created Azure Container Registry
 
     +++az acr login -n $AZ_CONTAINER_REGISTRY+++
 
-![A computer screen with white text Description automatically
-generated](./media/image10.jpeg)
+    ![A computer screen with white text Description automatically generated](./media/image10.jpeg)
 
-12. Create an Azure Kubernetes Cluster, You'll need an Azure Kubernetes
-    Cluster to deploy the Java app (container image) to.
+12. Create an Azure Kubernetes Cluster, You'll need an Azure Kubernetes Cluster to deploy the Java app (container image) to.
 
     +++az aks create --resource-group $AZ_RESOURCE_GROUP --name $AZ_KUBERNETES_CLUSTER --attach-acr $AZ_CONTAINER_REGISTRY --dns-name-prefix=$AZ_KUBERNETES_CLUSTER_DNS_PREFIX --generate-ssh-keys | jq+++
 
-![A computer screen with white text Description automatically
-generated](./media/image11.jpeg)
+    ![A computer screen with white text Description automatically generated](./media/image11.jpeg)
 
 >**Note:** Azure Kubernetes Cluster creation can take up to 10 minutes,once you run the command above, you can optionally let it continue in
 that Azure CLI tab and move on to the next unit.
@@ -137,8 +126,7 @@ that Azure CLI tab and move on to the next unit.
 
 1.  On the Start menu, click on **DockerDesktop**
 
-![A screenshot of a phone Description automatically
-generated](./media/image12.jpeg)
+    ![A screenshot of a phone Description automatically generated](./media/image12.jpeg)
 
 2.  Make sure its running.
 
@@ -163,26 +151,22 @@ down Java and Maven to execute the builds on your behalf.
 
     +++cd "C:\Labfiles\containerize-and-deploy-Java-app-to-Azure-master\Project\Airlines"+++
 
-![A black background with text Description automatically
-generated](./media/image13.jpeg)
+    ![A black background with text Description automatically generated](./media/image13.jpeg)
 
 2.  Run the following command in your CLI
 
     +++mvn clean install+++
 
-![A screenshot of a computer Description automatically
-generated](./media/image14.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image14.jpeg)
 
->**Note:** The mvn clean install command was used to illustrate then operational challenges of not using Docker multi-stage builds, that we
-will cover next. Again this step is optional, either way you can safely move along without executing the Maven command.
+    >**Note:** The mvn clean install command was used to illustrate then operational challenges of not using Docker multi-stage builds, that we will cover next. Again this step is optional, either way you can safely move along without executing the Maven command.
 
 3.  Maven should have successfully built the Flight Booking System for
     Airline Reservations Web Application Archive artifact
     FlightBookingSystemSample-0.0.-SNAPSHOT.war, as seen in the
     following image
 
-![A screenshot of a computer screen Description automatically
-generated](./media/image15.jpeg)
+    ![A screenshot of a computer screen Description automatically generated](./media/image15.jpeg)
 
 ## Task 2 : Construct a Docker file
 
@@ -192,39 +176,41 @@ generated](./media/image15.jpeg)
 
     +++vi Dockerfile+++
 
-![](./media/image16.jpeg)
+    ![](./media/image16.jpeg)
 
-Add the following contents to Dockerfile and then save and exit
+    Add the following contents to Dockerfile and then save and exit
 
->Note : Copy the code to the Notepad and then copy to the Dockerfile in Gitbash
+    >Note : Copy the code to the Notepad and then copy to the Dockerfile in Gitbash
 
-```
-#
-# Build stage
-#
-FROM maven:3.6.0-jdk-11-slim AS build
-WORKDIR /build
-COPY pom.xml .
-COPY src ./src
-COPY web ./web
-RUN mvn clean package
+    ```
+    #
+    # Build stage
+    #
+    FROM maven:3.6.0-jdk-11-slim AS build
+    WORKDIR /build
+    COPY pom.xml .
+    COPY src ./src
+    COPY web ./web
+    RUN mvn clean package
 
-#
-# Package stage
-#
-FROM tomcat:8.5.72-jre11-openjdk-slim
-COPY tomcat-users.xml /usr/local/tomcat/conf
-COPY --from=build /build/target/*.war /usr/local/tomcat/webapps/FlightBookingSystemSample.war
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
-```
+    #
+    # Package stage
+    #
+    FROM tomcat:8.5.72-jre11-openjdk-slim
+    COPY tomcat-users.xml /usr/local/tomcat/conf
+    COPY --from=build /build/target/*.war /usr/local/tomcat/webapps/FlightBookingSystemSample.war
+    EXPOSE 8080
+    CMD ["catalina.sh", "run"]
+    ```
 
-![A screenshot of a computer Description automatically
-generated](./media/image17.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image17.jpeg)
 
->**Note:** Optionally, the Dockerfile_Solution in the root of your
-project contains the contents needed.As you can see, this Docker file
-Build stage has six instructions.
+
+2. Press Esc and: and then type wq and press enter to save the file.
+
+    >**Note:** Optionally, the Dockerfile_Solution in the root of your
+    project contains the contents needed.As you can see, this Docker file
+    Build stage has six instructions.
 
 ## Exercise 3 : Build and run a container image for the Java app
 
@@ -236,7 +222,7 @@ earlier, a running instance of an image is a container.
 Now that you've successfully constructed a Dockerfile, you can instruct
 Docker to build a container image for you.
 
->**Note:** Ensure your Docker runtime is configured to build Linux containers. This is important as the Dockerfile being used references
+> **Note:** Ensure your Docker runtime is configured to build Linux containers. This is important as the Dockerfile being used references
 container images (JDK/JRE) for the Linux architecture.
 
 1.  **Docker build** is the command used to build container images.
@@ -244,24 +230,22 @@ container images (JDK/JRE) for the Linux architecture.
     the **.** is the location for Docker to find the Dockerfile. Run the
     following command in your CLI.
 
->**IMPORTANT** : This lab require jdk 11 . set java_home to jdk 11
+    > **IMPORTANT** : This lab require jdk 11 . set java_home to jdk 11
 
-    `docker build -t flightbookingsystemsample .`
+    +++docker build -t flightbookingsystemsample .+++
 
-![A computer screen with text Description automatically
-generated](./media/image18.jpeg)
+    ![A computer screen with text Description automatically generated](./media/image18.jpeg)
 
 2.  Docker build is something similar
 
-![A screen shot of a computer screen Description automatically
-generated](./media/image19.jpeg)
+    ![A screen shot of a computer screen Description automatically generated](./media/image19.jpeg)
 
->**Note:** As you saw previously, Docker has executed the instructionsnfrom the lines that you've previously written in the prior unit. Each
-instruction is a step in sequential order. Rerun the docker build command again, notice the differences in the steps, you'll notice ---\>
-Using cache for layers that haven't changed. If your not making app changes (before rerunning the docker build command), then you'll notice
-all cached layers as the binaries are untouched and can be sourced from Docker cache). This is an important takeaway when optimizing your
-container images and the associated compute costs with time spent
-building them.
+    >**Note:** As you saw previously, Docker has executed the instructionsnfrom the lines that you've previously written in the prior unit. Each
+    instruction is a step in sequential order. Rerun the docker build command again, notice the differences in the steps, you'll notice ---\>
+    Using cache for layers that haven't changed. If your not making app changes (before rerunning the docker build command), then you'll notice
+    all cached layers as the binaries are untouched and can be sourced from Docker cache). This is an important takeaway when optimizing your
+    container images and the associated compute costs with time spent
+    building them.
 
 3.  Docker can also display the available images that are resident. This
     is helpful for viewing what's available to run. Run the following
@@ -269,52 +253,42 @@ building them.
 
     +++docker image ls+++
 
-You will see something similar:
+    You will see something similar:
 
-![](./media/image20.jpeg)
+    ![](./media/image20.jpeg)
 
 ### Task 2 : Run a container image
 
-1.  Now that you have successfully built a container image, you can run
-    it.
+1.  Now that you have successfully built a container image, you can run it.
 
-2.  Docker run is the command used to run a container image. The -p :#### argument will be used to forward localhost HTTP (the first port before the colon) traffic to the container at runtime (the second
-port after the colon). Remember from the Dockerfile that the Tomcat app server is listening for HTTP traffic on port 8080 hence that is the
-container port that needs to be exposed. Lastly the image tag flightbookingsystemsample is needed to instruct Docker of what image to
-run. Run the following command in your CLI:
+2.  Docker run is the command used to run a container image. The -p :#### argument will be used to forward localhost HTTP (the first port before the colon) traffic to the container at runtime (the second port after the colon). Remember from the Dockerfile that the Tomcat app server is listening for HTTP traffic on port 8080 hence that is the container port that needs to be exposed. Lastly the image tag flightbookingsystemsample is needed to instruct Docker of what image to run. Run the following command in your CLI:
 
     +++docker run -p 8080:8080 flightbookingsystemsample+++
 
-You'll see something similar:
+    You'll see something similar:
 
-![A screen shot of a computer Description automatically
-generated](./media/image21.jpeg)
+    ![A screen shot of a computer Description automatically generated](./media/image21.jpeg)
 
-![A screen shot of a computer screen Description automatically
-generated](./media/image22.jpeg)
+    ![A screen shot of a computer screen Description automatically generated](./media/image22.jpeg)
 
->**Note:** if the command "docker run -p 8080:8080 flightbookingsystemsample" comes up with an error, then use the below
-mentioned port
+    > **Note:** if the command "docker run -p 8080:8080 flightbookingsystemsample" comes up with an error, then use the below mentioned port.
 
     +++docker run -p 8081:8080 flightbookingsystemsample+++
 
 3.  Open up a browser and visit the Flight Booking System for Airline
-    Reservations landing page     at `http://localhost:8080/FlightBookingSystemSample`
+    Reservations landing page at `http://localhost:8080/FlightBookingSystemSample`
 
     - You should see the following:
 
-![A plane flying in the sky Description automatically
-generated](./media/image23.jpeg)
+    ![A plane flying in the sky Description automatically generated](./media/image23.jpeg)
 
-4.  You can optionally sign in with any user from tomcat-users.xml for
-    example
+4.  You can optionally sign in with any user from tomcat-users.xml for example
 
-Username :  `someuser@azure.com`
+    Username :  `someuser@azure.com`
 
-Password : `password`
+    Password : `password`
 
-![A screenshot of a computer Description automatically
-generated](./media/image24.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image24.jpeg)
 
 5.  Leave this git bash instance as it is
 
@@ -328,8 +302,7 @@ generated](./media/image24.jpeg)
     types of container deployments. Use Azure container registries with
     your existing container development and deployment pipelines.
 
-2.  Open new instance of Gitbash and run az command to sign into Azure
-    portal.
+2.  Open new instance of Gitbash and run az command to sign into Azure portal.
 
     +++az login+++
 
@@ -343,12 +316,11 @@ generated](./media/image24.jpeg)
     - +++export AZ_RESOURCE_GROUP="aztest001_rg_XXX"+++ ( echo this varaible in 1st instance Gitbash)
     - +++export AZ_CONTAINER_REGISTRY="javaaksregistXXXX"+++
     - +++export AZ_KUBERNETES_CLUSTER="javaaksclusterXXX"+++
-    - +++export AZ_LOCATION=“your resource location”+++
+    - +++export AZ_LOCATION="westus"+++
     - +++export AZ_KUBERNETES_CLUSTER_DNS_PREFIX="javaakscontainer"+++
 
 
->**Note:** If your session has idled out, your doing this step at another point in time and/or from another CLI you may have to re
-    initialize your environment variables and re authenticate with the following CLI commands.
+    > **Note:** If your session has idled out, your doing this step at another point in time and/or from another CLI you may have to re initialize your environment variables and re authenticate with the following CLI commands.
 
 ### Task 2: Push a container image
 
@@ -365,34 +337,31 @@ flightbookingsystemsample image from Azure Container Registry.
 
     +++az acr login -n $AZ_CONTAINER_REGISTRY+++
 
-![](./media/image25.jpeg)
+    ![](./media/image25.jpeg)
 
 3.  First tag the previously built container image with your Azure
     Container Registry:
 
     +++docker tag flightbookingsystemsample $AZ_CONTAINER_REGISTRY.azurecr.io/flightbookingsystemsample+++
 
-![](./media/image26.jpeg)
+    ![](./media/image26.jpeg)
 
 4.  Second, push the container image to Azure Container Registry
 
     +++docker push $AZ_CONTAINER_REGISTRY.azurecr.io/flightbookingsystemsample+++
 
-![A screen shot of a computer Description automatically
-generated](./media/image27.jpeg)
+    ![A screen shot of a computer Description automatically generated](./media/image27.jpeg)
 
-![A screen shot of a computer Description automatically
-generated](./media/image28.jpeg)
+    ![A screen shot of a computer Description automatically generated](./media/image28.jpeg)
 
 5.  Now view the Azure Container Registry image meta-data of the newly
     pushed image. Run the following command in your CLI
 
     +++az acr repository show -n $AZ_CONTAINER_REGISTRY --image flightbookingsystemsample:latest+++
 
-You'll see something similar:
+    You'll see something similar:
 
-![A computer screen with white text Description automatically
-generated](./media/image29.jpeg)
+    ![A computer screen with white text Description automatically generated](./media/image29.jpeg)
 
 6.  Container image is now resident within Azure Container Registry and
     ready for deployments by Azure Services such as Azure Kubernetes
@@ -412,55 +381,56 @@ Service.
 
     +++vi deployment.yml+++
 
-![](./media/image30.jpeg)
+    ![](./media/image30.jpeg)
 
 3.  Add the following contents to deployment.yml and then save and exit:
 
->**Note:** You'll want to update with your AZ_CONTAINER_REGISTRY environment variable value that was set earlier, Exercise 1 Task1(
-AZ_CONTAINER_REGISTRY= javaaksregist )
+    >**Note:** You'll want to update with your AZ_CONTAINER_REGISTRY environment variable value that was set earlier, Exercise 1 Task1(
+    AZ_CONTAINER_REGISTRY= javaaksregist )
 
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: flightbookingsystemsample
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: flightbookingsystemsample
-  template:
+    ```
+    apiVersion: apps/v1
+    kind: Deployment
     metadata:
-      labels:
-        app: flightbookingsystemsample
+    name: flightbookingsystemsample
     spec:
-      containers:
-      - name: flightbookingsystemsample
-        image: <AZ_CONTAINER_REGISTRY>.azurecr.io/flightbookingsystemsample:latest
-        resources:
-          requests:
-            cpu: "1"
-            memory: "1Gi"
-          limits:
-            cpu: "2"
-            memory: "2Gi"
-        ports:
-        - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: flightbookingsystemsample
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 8080
-    targetPort: 8080
-  selector:
-    app: flightbookingsystemsample
-```
-![A screenshot of a computer program Description automatically
-generated](./media/image31.jpeg)
+    replicas: 1
+    selector:
+        matchLabels:
+        app: flightbookingsystemsample
+    template:
+        metadata:
+        labels:
+            app: flightbookingsystemsample
+        spec:
+        containers:
+        - name: flightbookingsystemsample
+            image: <AZ_CONTAINER_REGISTRY>.azurecr.io/flightbookingsystemsample:latest
+            resources:
+            requests:
+                cpu: "1"
+                memory: "1Gi"
+            limits:
+                cpu: "2"
+                memory: "2Gi"
+            ports:
+            - containerPort: 8080
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+    name: flightbookingsystemsample
+    spec:
+    type: LoadBalancer
+    ports:
+    - port: 8080
+        targetPort: 8080
+    selector:
+        app: flightbookingsystemsample
+    ```
+
+    ![A screenshot of a computer program Description automatically
+    generated](./media/image31.jpeg)
 
 4.  Press Esc and: and then type `wq` and press enter to save
     the file.
@@ -483,7 +453,7 @@ rename/update the contents of that file.
 
     +++az aks install-cli+++
 
-![](./media/image32.jpeg)
+    ![](./media/image32.jpeg)
 
 8.  Configure kubectl to connect to your Kubernetes cluster using the az
     aks get-credentials command. Run the following command in your CLI
