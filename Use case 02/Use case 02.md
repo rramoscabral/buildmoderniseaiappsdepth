@@ -381,7 +381,6 @@ capability as shown below.
 
 **Summary:**
 
-We have learnt to deploy a secure Quarkus application in Azure App
-Service, connected it to PostgreSQL database to add Fruit names from the
+We have learnt to deploy a secure Quarkus application in Azure App Service, connected it to PostgreSQL database to add Fruit names from the
 app's UI.
 
