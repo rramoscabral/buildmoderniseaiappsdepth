@@ -45,27 +45,22 @@ Follow these steps:
 2.  Fork this repository ` https://github.com/technofocus-pte/msdocs-flask-postgresql-sample-app` to
     your account by clicking on **Fork** as shown in below image.
 
-![A screenshot of a computer Description automatically
-generated](./media/image2.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image2.jpeg)
 
 3.  Enter unique name and then click on **Create fork**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image3.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image3.jpeg)
 
 4.  From the repository root of your fork,
     select **Code** > **Codespaces** > **+**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image4.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image4.jpeg)
 
 5.  Wait for the workspace to setup.
 
-![A screenshot of a computer Description automatically
-generated](./media/image5.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image5.jpeg)
 
-![A screenshot of a computer Description automatically
-generated](./media/image6.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image6.jpeg)
 
 6.  In the codespace terminal, run the following commands:
 
@@ -73,8 +68,7 @@ generated](./media/image6.jpeg)
 
     `python3 -m pip install -r requirements.txt`
 
-![A screenshot of a computer Description automatically
-generated](./media/image7.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image7.jpeg)
 
 8.  Run below command to create environment varaible
 
@@ -82,8 +76,7 @@ generated](./media/image7.jpeg)
 
     `cp .env.sample.devcontainer .env`
 
-![A screenshot of a computer program Description automatically
-generated](./media/image8.jpeg)
+    ![A screenshot of a computer program Description automatically generated](./media/image8.jpeg)
 
 10. Run below command for data migration
 
@@ -91,77 +84,58 @@ generated](./media/image8.jpeg)
 
     `python3 -m flask db upgrade`
 
-![A screenshot of a computer program Description automatically
-generated](./media/image9.jpeg)
+    ![A screenshot of a computer program Description automatically generated](./media/image9.jpeg)
 
 11. Run below command to
 
-> \# Start the development server
+    > \# Start the development server
 
-\`\`python3 -m flask run\`\`
+    \`\`python3 -m flask run\`\`
 
-![A screenshot of a computer Description automatically
-generated](./media/image10.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image10.jpeg)
 
 12. When you see the message Your application running on port is
     available., click **Open in Browser**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image10.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image10.jpeg)
 
-![A screenshot of a computer Description automatically
-generated](./media/image11.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image11.jpeg)
 
-![A screenshot of a computer Description automatically
-generated](./media/image12.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image12.jpeg)
 
 13. Click on **Add new restaurant** button.
 
-![A white screen with black text Description automatically
-generated](./media/image13.jpeg)
+    ![A white screen with black text Description automatically generated](./media/image13.jpeg)
 
 14. Enter the details below and click on **Submit** button.
 
-Name : `Contoso Rica`
+    Name : `Contoso Rica`
 
-Street Adress - `3A ,8th cross, Ferns street , Singapore`
+    Street Adress - `3A ,8th cross, Ferns street , Singapore`
 
-Description - `This is a medium to high priced restaurant in the city shopping center`
+    Description - `This is a medium to high priced restaurant in the city shopping center`
 
-![A screenshot of a restaurant Description automatically
-generated](./media/image14.jpeg)
+    ![A screenshot of a restaurant Description automatically generated](./media/image14.jpeg)
 
 15. Click on **Add new review** button.
 
-![A screenshot of a computer Description automatically
-generated](./media/image15.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image15.jpeg)
 
 16. Enter your review and then click on button. **Save changes**
 
-**Your name : your name**
+    **Your name : your name**
 
-**Rating : your rating**
+    **Rating : your rating**
 
-    ```CLI
-    This is a medium to high priced restaurant in the city shopping
-    center. Service was a little bit confusing as we had at least 6 waiters
-    coming to ask us things. Food took some time to come. We had 2 menus:
-    one indian and one thai. The thai is 30% cheaper so we went for some
-    appetizers and thai red curry. Food took some time but it was worth it.
-    It was delicious and very well prepared. Overall, this is a good
-    eat.
-    ``
+    **Comment:** ``` This is a medium to high priced restaurant in the city shopping center. Service was a little bit confusing as we had at least 6 waiters coming to ask us things. Food took some time to come. We had 2 menus: one indian and one thai. The thai is 30% cheaper so we went for some appetizers and thai red curry. Food took some time but it was worth it. It was delicious and very well prepared. Overall, this is a good eat.``
 
-![A screenshot of a computer Description automatically
-generated](./media/image16.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image16.jpeg)
 
-![A white card with black text Description automatically
-generated](./media/image17.jpeg)
+    ![A white card with black text Description automatically generated](./media/image17.jpeg)
 
 17. Add some more reviews and new restaurant with comments.
 
-![A screenshot of a computer Description automatically
-generated](./media/image18.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image18.jpeg)
 
 ### Task 2: Deploy the app to Azure.
 
@@ -176,27 +150,22 @@ monitor them.
 
 ![](./media/image19.jpeg)
 
-2.  It will prompt you to provide a environment name
-    (like flask-appXXXX (XXXX can be unique number)), which will later
-    be used in the name of the deployed resources.
+2.  It will prompt you to provide a environment name (like **flask-appXXXX** (**XXXX** can be unique number)), which will later be used in the name of the deployed resources.
 
-![](./media/image20.jpeg)
+    ![](./media/image20.jpeg)
 
 3.  Login if required `azd auth login` .copy the code and press enter.
 
-![A screenshot of a computer Description automatically
-generated](./media/image21.jpeg)
+    ![A screenshot of a computer Description automatically generated](./media/image21.jpeg)
 
 4.  Enter the code and then sign in with your Azure subscription
     account.
 
-![A screenshot of a computer error Description automatically
-generated](./media/image22.jpeg)
+    ![A screenshot of a computer error Description automatically generated](./media/image22.jpeg)
 
 ![](./media/image23.jpeg)
 
-![A screenshot of a computer error Description automatically
-generated](./media/image24.jpeg)
+    ![A screenshot of a computer error Description automatically generated](./media/image24.jpeg)
 
 ![A screenshot of a computer program Description automatically
 generated](./media/image25.jpeg)

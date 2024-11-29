@@ -245,7 +245,9 @@ generated](./media/image32.jpeg)
 generated](./media/image33.jpeg)
 
 3.  To create an environment for Azure resources, run the following
-    Azure Developer CLI command.It asks you to enter environment name
+    Azure Developer CLI command.
+    
+    It asks you to enter environment name
     .Enter any name of your choice and press enter (eg : `ragpgpy`)
 
 **Note:** When creating an environment, ensure that the name consists of
